@@ -40,7 +40,6 @@
                 <div *ngFor="let item of backgroundEquipment; index as i">
                     <input class="itemSpacing" type="text" [(ngModel)]="item.name" placeholder="Item Name">
                     <input class="itemSpacing" type="number" [(ngModel)]="item.quantity">
-                    <textarea class="itemSpacing" rows="5" [(ngModel)]="item.description" placeholder="Item Description"></textarea>
                     <button (click)="deleteItem(i)">Delete Item</button>
                 </div>
                 <button (click)="addItem()">Add Item</button>

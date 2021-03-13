@@ -3,3 +3,6 @@
     margin: 0;
     font-family: Helvetica, sans-serif;
 }
+body {
+    height: 100vh;
+}

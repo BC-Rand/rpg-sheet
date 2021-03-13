@@ -17,11 +17,11 @@ import { SimpleApiResult, SimpleChoiceResult } from '../types/results';
 })
 export class BackgroundComponent implements OnInit {
 
-  public characterName: string = "Randori";
-  public backgroundName: string = "Noble";
+  public characterName: string = "";
+  public backgroundName: string = "";
   public backgroundTrait: Trait = {
-    name: 'Retainers',
-    description: 'You have 3 retainers',
+    name: '',
+    description: '',
     source: 'Background'
   }
   public backgroundEquipment: Equipment[] = [
@@ -321,11 +321,8 @@ export class BackgroundComponent implements OnInit {
       }
     }
     for (let i=0; i < this.backgroundEquipment.length; i++) {
-      console.log("we're in the for loop")
-      if (this.backgroundEquipment[i].name == "" || this.backgroundEquipment[i].description == "" || this.backgroundEquipment[i].quantity < 1) {
-        console.log("splicing background equipment")
+      if (this.backgroundEquipment[i].name == "" ||  this.backgroundEquipment[i].quantity < 1) {
         let spliced = this.backgroundEquipment.splice(i, 1);
-        console.log(spliced)
         i--;
       }
     }
