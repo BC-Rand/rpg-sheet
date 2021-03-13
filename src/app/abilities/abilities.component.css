@@ -1,0 +1,17 @@
+
+input {
+    float: right;
+    width: 50px;
+}
+span {
+    float: right;
+}
+.boldLabel {
+    font-weight: bold;
+}
+table {
+    width: 100%;
+}
+tr {
+    width: 100%;
+}

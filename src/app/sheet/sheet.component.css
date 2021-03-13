@@ -1,0 +1,117 @@
+.wrapper {
+    background-color: rgb(192, 210, 211);
+    box-sizing: border-box;
+    vertical-align: top;
+    text-align: left;
+    padding: 0 1rem 1rem 1rem;
+}
+.header {
+    font-size: 2rem;
+    width: auto;
+    padding: 1rem;
+}
+.card {
+    border: 1px solid black;
+    margin-top: 1rem;
+    background-color: white;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    width: 100%;
+}
+.cardHeader {
+    padding: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+.cardBody {
+    padding: 1rem;
+}
+
+.leftColumn {
+    width:calc(34% - 2rem / 3);
+    display:inline-block;
+    vertical-align: top;
+}
+.lowerLeftColumn {
+    height: 301px;
+    width: 100%
+}
+.middleColumn {
+    margin-left: 1rem;
+    width: calc(26% - 2rem / 3);
+}
+.rightColumn {
+    width: calc(40% - 2rem / 3);
+    margin-left: 1rem;
+}
+
+@media only screen and (max-width: 854px) {
+    .upperLeftColumn {
+        width: 55%
+    }
+    .lowerLeftColumn {
+        width: calc(45% - 1rem);
+        margin-left: 1rem;
+        height: 283px;
+    }
+    .lowerLeftColumn td.left {
+        width: 60%;        
+    }
+    .lowerLeftColumn td.right {
+        width: 40%;
+    }
+    .leftColumn {
+        display: inline;
+    }
+    .middleColumn {
+        margin-left: 0;
+        width: calc(43% - 1rem / 2);
+    }
+    .rightColumn {
+        width: calc(57% - 1rem / 2);
+        margin-left: 1rem;
+    }
+}
+
+@media only screen and (max-width: 539px) {
+    .upperLeftColumn {
+        width: 100%
+    }
+    .lowerLeftColumn {
+        width: 100%;
+        margin-left: 0;
+        height: 283px;
+    }
+    .leftColumn {
+        width: calc(100% - 36px);
+        display: inline;
+    }
+    .middleColumn {
+        margin-left: 0;
+        width: 100%;
+    }
+    .rightColumn {
+        width: 100%;
+        margin-left: 0rem;
+    }
+    .lowerLeftColumn {
+        height: auto;
+    }
+}
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}
+.boldLabel {
+    font-weight: bold;
+}
+.itemSpacing {
+    margin-top: 0.5rem;
+}
+.tableSpacing td {
+    padding-top: 0.5rem;
+}

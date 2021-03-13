@@ -1,0 +1,62 @@
+<div class="wrapper">
+    <div class="header" style="padding: 0;">
+        <p class="headerText">Class</p>
+        <select [(ngModel)]="classSelect" (ngModelChange)="getClass(classSelect)">
+            <option value="" selected disabled hidden>Select a Class</option>
+            <option *ngFor="let class of classes" value="{{class.url}}">{{class.name}}</option>
+        </select>
+    </div>
+    <div class="content">
+        <div *ngIf="selectedClass !== undefined">
+            <div class="card">
+                <div class="cardHeader">
+                    <p>{{selectedClass.name}}</p>
+                </div>
+                <div class="cardBody">
+                    <p class="boldLabel">Hit Dice: <span>d{{selectedClass.hit_die}}</span></p>
+                    <p class="boldLabel itemSpacing">Saving Throws: <span>{{ selectedClass.saving_throws[0].name }}, {{ selectedClass.saving_throws[1].name }}</span></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardHeader">
+                    <p>Starting Proficiencies</p>
+                </div>
+                <div class="cardBody">
+                    <p [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let proficiency of selectedClass.proficiencies; index as i">{{ proficiency.name }}</p>
+                </div>
+            </div>
+            <div class="card" *ngFor="let proficiencyChoices of selectedClass.proficiency_choices; index as i">
+                <div class="cardHeader">
+                    <p [ngClass]="proficiencyStates[i].error? 'red':''">Proficiency Choices (Pick {{proficiencyChoices.choose}})</p>
+                </div>
+                <div class="cardBody">
+                    <div [ngClass]="i2 > 0 ? 'itemSpacing' : ''" *ngFor="let proficiency of proficiencyChoices.from; index as i2">
+                        <input (click)="checkboxClick(proficiencyChoices.choose, proficiencyStates[i], proficiency)" type="checkbox" [(ngModel)]="proficiency.choose">
+                        <label (click)="labelClick(proficiencyChoices.choose, proficiencyStates[i], proficiency)" class="checkboxLabel" for="">{{ proficiency.name }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card" *ngIf="selectedClass.starting_equipment.length > 0">
+                <div class="cardHeader">
+                    <p>Starting Equipment</p>
+                </div>
+                <div class="cardBody">
+                    <p [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let item of selectedClass.starting_equipment; index as i">{{ item.quantity }}x {{ item.equipment.name }}</p>
+                </div>
+            </div>
+            <div class="card" *ngFor="let chooseFrom of selectedClass.custom_equipment_options; index as i">
+                <div class="cardHeader">
+                    <p [ngClass]="equipmentStates[i].error? 'red':''">Equipment Choices (Pick {{ chooseFrom.choose }}{{ chooseFrom.label.length > 0 ? ' ' + chooseFrom.label.slice(0, chooseFrom.label.length-1) : '' }})</p>
+                </div>
+                <div class="cardBody">
+                    <div [ngClass]="i2 > 0 ? 'itemSpacing' : ''" *ngFor="let equipment of chooseFrom.from; index as i2">
+                        <input (click)="checkboxClick(chooseFrom.choose, equipmentStates[i], equipment)" type="checkbox" [(ngModel)]="equipment.choose">
+                        <label (click)="labelClick(chooseFrom.choose, equipmentStates[i], equipment)" class="checkboxLabel" for="">{{ equipment.name }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="navigationButton">Previous</button>
+    <button class="navigationButton" (click)="chooseClass()">Next</button>
+</div>

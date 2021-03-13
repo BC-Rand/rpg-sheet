@@ -1,0 +1,135 @@
+<div *ngIf="character" class="wrapper">
+    <div class="card header">
+            <p>{{ character.name }} | {{ character.race.name }} | {{ character.class.name }}</p>
+    </div>
+    <div class="leftColumn">
+        <div class="card upperLeftColumn">
+            <div class="cardHeader">
+                <p>Ability Scores</p>
+            </div>
+            <div class="cardBody">
+                <table style="width: 100%;">
+                    <tr class="boldLabel">
+                        <td>Ability</td>
+                        <td>Score</td>
+                        <td>Mod</td>
+                        <td>Throw</td>
+                    </tr>
+                    <tr class="tableSpacing" *ngFor="let key of abilityKeys;">
+                        <td>{{ key | titlecase }}</td>
+                        <td>{{ character.stats[key] }}</td>
+                        <td (click)="rollbox(key+' Check', calculateMod(character.stats[key]))">{{ stringifyMod(character.stats[key]) }}</td>
+                        <td (click)="rollbox(key+' S T', calculateMod(character.stats[key], character.savingThrows[key]))" [ngClass]="character.savingThrows[key] ? 'green' : 'red'">{{ stringifyMod(character.stats[key], character.savingThrows[key]) }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card lowerLeftColumn">
+            <div class="cardHeader">
+                <p>Stats</p>
+            </div>
+            <div class="cardBody">
+                <table style="width: 100%;">
+                    <tr>
+                        <td class="boldLabel left">Hit Points</td>
+                        <td class="right">{{ character.hitPoints.current }} / {{ character.hitPoints.total }}</td>
+                    </tr>
+                    <tr class="tableSpacing left">
+                        <td class="boldLabel">Hit Dice</td>
+                        <td class="right">{{ character.hitDice.current }} / {{ character.hitDice.total }} d{{ this.character.class.hit_die }}</td>
+                    </tr>
+                    <tr class="tableSpacing left">
+                        <td class="boldLabel">Armor Class</td>
+                        <td class="right">{{ character.armorClass }}</td>
+                    </tr>
+                    <tr class="tableSpacing left">
+                        <td class="boldLabel">Speed</td>
+                        <td class="right">{{ character.race.speed }}</td>
+                    </tr>
+                    <tr class="tableSpacing left" (click)="rollbox('Initiative', calculateMod(character.stats.dexterity))">
+                        <td class="boldLabel">Initiative</td>
+                        <td class="right">{{ stringifyMod(character.stats.dexterity) }}</td>
+                    </tr>
+                    <tr class="tableSpacing left">
+                        <td class="boldLabel">Proficiency Bonus</td>
+                        <td class="right">{{ proficiencyBonus }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card middleColumn">
+        <div class="cardHeader">
+            <p>Skills</p>
+        </div>
+        <div class="cardBody">
+            <table style="width: 100%;">
+                <tr (click)="rollbox(item.value.name, calculateMod(character.stats[item.value.stat], item.value.proficient))" [ngClass]="i > 0 ? 'tableSpacing' : ''" *ngFor="let item of character.skill_proficiencies | keyvalue; index as i">
+                    <td>{{ item.value.name }}</td>
+                    <td>{{ item.value.proficient ? '●' : '○' }}  {{ stringifyMod(character.stats[item.value.stat], item.value.proficient) }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card rightColumn" style="height: 600px;">
+        <div class="cardHeader">
+            <p>Rollbox</p>
+        </div>
+        <div class="cardBody">
+            <table style="width: 100%;">
+                <tr *ngIf="rollData.length == 0">
+                    <td style="width:275px;">Click on a modifier to roll</td>
+                </tr>
+                <tr [ngClass]="[i > 0 ? 'tableSpacing' : '', roll.roll == 1 ? 'red' : roll.roll == 20 ? 'green' : '']" *ngFor="let roll of rollData; index as i">
+                    <td style="width: 196px;">{{ roll.label | titlecase }}</td>
+                    <td>{{ roll.roll + roll.mod }}</td>
+                    <td>({{ roll.roll }}{{ ((roll.mod >= 0) ? "+" : "") + roll.mod.toString() }})</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="cardHeader">
+            <p>Level Up</p>
+        </div>
+        <div class="cardBody">
+            <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let trait of levelUpData.features; index as i">
+                <p class="boldLabel">{{ trait.name }}</p>
+                <p class="itemSpacing">{{ trait.description }}</p>
+            </div>
+            <div *ngIf="levelUpData.abilityBonus.true">
+                <table>
+                    <tr *ngFor="let key of abilityKeys;">
+                        <td class="itemSpacing"><label class="boldLabel" for="">{{ key | titlecase }}: </label></td>
+                        <td class="itemSpacing"><input type="number" [(ngModel)]="levelUpData.abilityBonus.values[key]"></td>
+                    </tr>
+                </table>
+            </div>
+            <button class="itemSpacing" (click)="levelUp()">Level Up</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="cardHeader">
+            <p>Traits</p>
+        </div>
+        <div class="cardBody">
+            <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let trait of character.traits; index as i">
+                <p class="boldLabel">{{ trait.name }}</p>
+                <p class="itemSpacing">{{ trait.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="cardHeader">
+            <p>Inventory</p>
+        </div>
+        <div class="cardBody">
+            <table>
+                <tr *ngFor="let item of character.inventory; index as i">
+                    <td [ngClass]="i > 0 ? 'itemSpacing' : ''">{{ item.quantity }}x</td>
+                    <td [ngClass]="i > 0 ? 'itemSpacing' : ''">{{ item.name }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

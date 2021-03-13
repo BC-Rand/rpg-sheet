@@ -1,0 +1,84 @@
+<div class="wrapper">
+    <div class="header">
+        <p class="headerText">Ability Scores</p>
+    </div>
+    <div class="content">
+        <div class="card">
+            <table class="cardBody">
+                <tr>
+                    <td>
+                        <label [ngClass]="errors.strength?'red':''" class="boldLabel" for="">Strength: </label>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="abilityScores.strength">
+                    </td>
+                    <td>
+                        +{{ abilityBonuses.strength }}
+                    </td>
+                </tr>
+                <tr class="itemSpacing">
+                    <td>
+                        <label [ngClass]="errors.dexterity?'red':''" class="boldLabel" for="">Dexterity: </label>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="abilityScores.dexterity">
+                    </td>
+                    <td>
+                        +{{ abilityBonuses.dexterity }}
+                    </td>
+                </tr>
+                <tr class="itemSpacing">
+                    <td>
+                        <label [ngClass]="errors.constitution?'red':''" class="boldLabel" for="">Constitution: </label>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="abilityScores.constitution">
+                    </td>
+                    <td>
+                        +{{ abilityBonuses.constitution }}
+                    </td>
+                </tr>
+                <tr class="itemSpacing">
+                    <td>
+                        <label [ngClass]="errors.intelligence?'red':''" class="boldLabel" for="">Intelligence: </label>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="abilityScores.intelligence">
+                    </td>
+                    <td>
+                        +{{ abilityBonuses.intelligence }}
+                    </td>
+                </tr>
+                <tr class="itemSpacing">
+                    <td>
+                        <label [ngClass]="errors.wisdom?'red':''" class="boldLabel" for="">Wisdom: </label>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="abilityScores.wisdom">
+                    </td>
+                    <td>
+                        +{{ abilityBonuses.wisdom }}
+                    </td>
+                </tr>
+                <tr class="itemSpacing">
+                    <td>
+                        <label [ngClass]="errors.charisma?'red':''" class="boldLabel" for="">Charisma: </label>
+                    </td>
+                    <td>
+                        <input type="number" [(ngModel)]="abilityScores.charisma">
+                    </td>
+                    <td>
+                        +{{ abilityBonuses.charisma }}
+                    </td>
+                </tr>
+                <tr class="itemSpacing">
+                    <td>
+                        <button class="itemSpacing" (click)="randomize()">Randomize!</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <button class="navigationButton" (click)="previousComponent()">Previous</button>
+    <button class="navigationButton" (click)="chooseAbilities()">Next</button>
+</div>

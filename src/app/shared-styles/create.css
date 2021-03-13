@@ -1,0 +1,51 @@
+.wrapper {
+    background-color: #99AEAD;
+    width: 100%;
+    height: 100vh;
+}
+.header {
+    background-color: #658B6F;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+}
+.content {
+    height: calc(95vh - 4rem - 6px);
+    overflow-y: auto;
+    text-align: left;
+    padding: 0 1rem 1rem 1rem;
+}
+.navigationButton {
+    width: 50%;
+    height: 5vh;
+    display:inline-block;
+}
+
+.headerText {
+    padding-left: 1rem;
+    font-weight: bold;
+    font-size: large;
+}
+.card {
+    border: 1px solid black;
+    margin-top: 1rem;
+    background-color: white;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.cardHeader {
+    padding: 1rem;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+.cardBody {
+    padding: 1rem;
+}
+.itemSpacing {
+    margin-top: 0.5rem;
+}
+.checkboxLabel {
+    margin-left: 0.5rem;
+}
+.red {
+    color:red;
+}

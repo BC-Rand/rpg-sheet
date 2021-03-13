@@ -5,7 +5,11 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "strict": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -16,6 +20,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    "strictPropertyInitialization": false,
     "lib": [
       "es2018",
       "dom"

@@ -1,0 +1,52 @@
+<div class="wrapper">
+    <div class="header">
+        <p class="headerText">Background</p>
+    </div>
+    <div class="content">
+        <div class="card">
+            <div class="cardHeader">
+                <p>Character Name</p>
+            </div>
+            <div class="cardBody">
+                <input type="text" [(ngModel)]="characterName" placeholder="Character Name">
+            </div>
+        </div>
+        <div class="card">
+            <div class="cardHeader">
+                <p>Background Trait</p>
+            </div>
+            <div class="cardBody">
+                <input type="text" [(ngModel)]="backgroundName" placeholder="Background Name"><br>
+                <input class="itemSpacing" type="text" [(ngModel)]="backgroundTrait.name" placeholder="Trait Name"><br>
+                <textarea class="itemSpacing" cols="30" rows="10" [(ngModel)]="backgroundTrait.description" placeholder="Trait Description"></textarea>
+            </div>
+        </div>
+        <div class="card">
+            <div class="cardHeader">
+                <p>Background Proficiencies</p>
+            </div>
+            <div class="cardBody">
+                <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let proficiency of backgroundProficiencies | keyvalue; index as i">
+                    <input type="checkbox" [(ngModel)]="proficiency.value.proficient" [disabled]="filterHelper(proficiency.value.disabled)">
+                    <label class="checkboxLabel" for="">{{ proficiency.value.name }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="cardHeader">
+                <p>Background Items</p>
+            </div>
+            <div class="cardBody">
+                <div *ngFor="let item of backgroundEquipment; index as i">
+                    <input class="itemSpacing" type="text" [(ngModel)]="item.name" placeholder="Item Name">
+                    <input class="itemSpacing" type="number" [(ngModel)]="item.quantity">
+                    <textarea class="itemSpacing" rows="5" [(ngModel)]="item.description" placeholder="Item Description"></textarea>
+                    <button (click)="deleteItem(i)">Delete Item</button>
+                </div>
+                <button (click)="addItem()">Add Item</button>
+            </div>
+        </div>
+    </div>
+    <button class="navigationButton" (click)="previousComponent()">Previous</button>
+    <button class="navigationButton" (click)="chooseBackground()">Next</button>
+</div>

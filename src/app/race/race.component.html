@@ -1,0 +1,100 @@
+<div class="wrapper">
+    <div class="header" style="padding: 0;">
+        <p class="headerText">Race</p>
+        <select [(ngModel)]="raceSelect" (ngModelChange)="getRace(raceSelect)">
+            <option value="" selected disabled hidden>Select a Race</option>
+            <option *ngFor="let race of races" value="{{race.url}}">{{race.name}}</option>
+        </select>
+    </div>
+    <div class="content">
+        <div *ngIf="selectedRace != undefined">
+            <div class="card">
+                <div class="cardHeader">
+                    <p class="">{{ selectedRace.name }}</p>
+                </div>
+                <div class="cardBody">
+                    <p class="boldLabel">Size: <span>{{ selectedRace.size }}</span></p>
+                    <p class="boldLabel itemSpacing">Speed: <span>{{ selectedRace.speed }}</span></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardHeader">
+                    <p>Ability Bonuses</p>
+                </div>
+                <div class="cardBody">
+                    <p [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let bonus of selectedRace.ability_bonuses; index as i">{{ bonus.ability_score.name }}+{{ bonus.bonus }}</p>
+                </div>
+            </div>
+            <div class="card" *ngIf="!!selectedRace.ability_bonus_options">
+                <div class="cardHeader">
+                    <p class="{{ choiceState.abilityBonus.error?'red':'' }}">Ability Bonus Options (Choose {{ selectedRace.ability_bonus_options.choose }})</p>
+                </div>
+                <div class="cardBody">
+                    <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let bonusOption of selectedRace.ability_bonus_options.from; index as i">
+                        <input (click)="checkboxClick(selectedRace.ability_bonus_options.choose, choiceState.abilityBonus, bonusOption)" type="checkbox" [(ngModel)]="bonusOption.choose">
+                        <label (click)="labelClick(selectedRace.ability_bonus_options.choose, choiceState.abilityBonus, bonusOption)" class="checkboxLabel" for="">{{ bonusOption.ability_score.name }}+{{ bonusOption.bonus }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card" *ngIf="selectedRace.starting_proficiencies.length != 0">
+                <div class="cardHeader">
+                    <p>Starting Proficiencies</p>
+                </div>
+                <div class="cardBody">
+                    <p [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let startingProficiency of selectedRace.starting_proficiencies; index as i;">{{ startingProficiency.name}}</p>
+                </div>
+            </div>
+            <div class="card" *ngIf="!!selectedRace.starting_proficiency_options">
+                <div class="cardHeader">
+                    <p [ngClass]="choiceState.startingProficiency.error?'red':''">Starting Proficiency Options (choose {{ selectedRace.starting_proficiency_options.choose }})</p>
+                </div>
+                <div class="cardBody">
+                    <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let proficiency of selectedRace.starting_proficiency_options.from; index as i;">
+                        <input (click)="checkboxClick(selectedRace.starting_proficiency_options.choose, choiceState.startingProficiency, proficiency)" type="checkbox" [(ngModel)]="proficiency.choose" [disabled]="filterProficiency(proficiency)">
+                        <label (click)="labelClick(selectedRace.starting_proficiency_options.choose, choiceState.startingProficiency, proficiency)" class="checkboxLabel" for="">{{ proficiency.name }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="cardHeader">
+                    <p>Languages</p>
+                </div>
+                <div class="cardBody">
+                    <p [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let language of selectedRace.languages; index as i">{{ language.name }}</p>
+                </div>
+            </div>
+            <div class="card" *ngIf="!!selectedRace.language_options">
+                <div class="cardHeader">
+                    <p class="{{ choiceState.language.error?'red':'' }}">Language Options (Choose {{ selectedRace.language_options.choose }})</p>
+                </div>
+                <div class="cardBody">
+                    <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let languageOption of selectedRace.language_options.from; index as i">
+                        <input (click)="checkboxClick(selectedRace.language_options.choose, choiceState.language, languageOption)" type="checkbox" [(ngModel)]="languageOption.choose">
+                        <label (click)="labelClick(selectedRace.language_options.choose, choiceState.language, languageOption)" class="checkboxLabel" for="">{{ languageOption.name }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="card" *ngIf="selectedRace.traits.length != 0">
+                <div class="cardHeader">
+                    <p>Traits</p>
+                </div>
+                <div class="cardBody">
+                    <p [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let trait of selectedRace.traits; index as i">{{ trait.name }}</p>
+                </div>
+            </div>
+            <div class="card" *ngIf="!!selectedRace.trait_options">
+                <div class="cardHeader">
+                    <p class="{{ choiceState.traitOptions.error?'red':'' }}">Trait Options (choose {{ selectedRace.trait_options.choose }})</p>
+                </div>
+                <div class="cardBody">
+                    <div [ngClass]="i > 0 ? 'itemSpacing' : ''" *ngFor="let trait of selectedRace.trait_options.from; index as i">
+                        <input (click)="labelClick(selectedRace.trait_options.choose, choiceState.traitOptions, trait)" type="checkbox" [(ngModel)]="trait.choose">
+                        <label (click)="labelClick(selectedRace.trait_options.choose, choiceState.traitOptions, trait)" class="checkboxLabel" for="">{{trait.name}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="navigationButton" (click)="previousComponent()">Previous</button>
+    <button class="navigationButton" (click)="chooseRace()">Next</button>
+</div>

@@ -1,0 +1,8 @@
+
+.sectionHeader {
+    font-weight: bold;
+}
+textarea {
+    width:calc(100% - 7px);
+    resize: none;
+}
