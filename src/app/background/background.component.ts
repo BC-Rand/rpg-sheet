@@ -294,7 +294,7 @@ export class BackgroundComponent implements OnInit {
     // Inelegant solution
     console.log("filtering the proficiencies in background")
     this.classProficiencies.forEach(proficiency => {
-      let key: keyof SkillProficiencies = proficiency.name.toLowerCase().replace(" ", "_") as keyof SkillProficiencies;
+      let key: keyof SkillProficiencies = proficiency.name.toLowerCase().replace(/ /g, "_") as keyof SkillProficiencies;
       this.backgroundProficiencies[key].disabled = true;
     })
     this.raceProficiencies.forEach(proficiency => {
@@ -303,7 +303,7 @@ export class BackgroundComponent implements OnInit {
       this.backgroundProficiencies[key].disabled = true;
     });
     this.raceStartingProficiencies.forEach(proficiency => {
-      let key: keyof SkillProficiencies = proficiency.name.substr(7).toLowerCase().replace(" ", "_") as keyof SkillProficiencies
+      let key: keyof SkillProficiencies = proficiency.name.substr(7).toLowerCase().replace(/ /g, "_") as keyof SkillProficiencies
       this.backgroundProficiencies[key].disabled = true;
     })
   }

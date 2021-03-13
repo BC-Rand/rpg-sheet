@@ -363,7 +363,8 @@ export class CharacterService {
 
       skillProficiencies.forEach(
         skillProficiency => {
-          let key = skillProficiency.name.toLowerCase().replace(' ', '_') as keyof SkillProficiencies;
+          let key = skillProficiency.name.toLowerCase().replace(/ /g, '_') as keyof SkillProficiencies;
+          console.log(key);
           newCharacter.skill_proficiencies[key].proficient = skillProficiency.proficient;
           newCharacter.skill_proficiencies[key].source = skillProficiency.source;
         }
